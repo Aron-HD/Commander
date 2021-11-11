@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Commander.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -41,6 +42,8 @@ namespace Commander
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Commander", Version = "v1" });
             });
+            // make automapper available in rest of app through dependency injection
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             // Can swap out dependency injection
             // services.AddScoped<ICommanderRepo, MockCommanderRepo>();
             services.AddScoped<ICommanderRepo, SqlCommanderRepo>();
