@@ -9,11 +9,14 @@ Repo: [binarythistle](https://github.com/binarythistle/S03E02---.NET-Core-3.1-MV
 
 ## Routes
 
-| HTTP Method | Function           | Endpoint             | Completed |
-| ----------- | ------------------ | -------------------- | --------- |
-| GET         | List all Commands  | `/api/commands`      | Y         |
-| GET         | List Command by ID | `/api/commands/{id}` | Y         |
-| POST        | Create a Command   | `/api/commands`      | Y         |
+| HTTP Method | Function              | Endpoint             | Completed |
+| ----------- | --------------------- | -------------------- | --------- |
+| POST        | Create a Command      | `/api/commands`      | Y         |
+| GET         | Read all Commands     | `/api/commands`      | Y         |
+| GET         | Read Command by ID    | `/api/commands/{id}` | Y         |
+| PUT         | Replace Command by ID | `/api/commands/{id}` | Y         |
+| PATCH       | Update Command by ID  | `/api/commands/{id}` | Y         |
+| DELETE      | Delete Command by ID  | `/api/commands/{id}` | Y         |
 
 ## User secrets
 
