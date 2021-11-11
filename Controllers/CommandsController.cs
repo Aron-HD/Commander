@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using AutoMapper;
 using Commander.Data;
 using Commander.DTOs;
-// using Commander.Models;
+using Commander.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Commander.Controllers
@@ -30,7 +30,7 @@ namespace Commander.Controllers
         }
 
         // GET api/commands/{id}
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetCommandById")]
         public ActionResult<CommandReadDTO> GetCommandById(int id)
         {
             var commandItem = _repository.GetCommandById(id);
@@ -39,6 +39,19 @@ namespace Commander.Controllers
                 return Ok(_mapper.Map<CommandReadDTO>(commandItem));
             }
             return NotFound();
+        }
+
+        //POST api/commands
+        [HttpPost]
+        public ActionResult<CommandReadDTO> CreateCommand(CommandCreateDTO commandCreateDto)
+        {
+            var commandModel = _mapper.Map<Command>(commandCreateDto);
+            _repository.CreateCommand(commandModel);
+            _repository.SaveChanges();
+
+            var commandReadDTO = _mapper.Map<CommandReadDTO>(commandModel);
+
+            return CreatedAtRoute(nameof(GetCommandById), new { Id = commandReadDTO.Id }, commandReadDTO);
         }
     }
 }

@@ -13,6 +13,7 @@ Repo: [binarythistle](https://github.com/binarythistle/S03E02---.NET-Core-3.1-MV
 | ----------- | ------------------ | -------------------- | --------- |
 | GET         | List all Commands  | `/api/commands`      | Y         |
 | GET         | List Command by ID | `/api/commands/{id}` | Y         |
+| POST        | Create a Command   | `/api/commands`      | Y         |
 
 ## User secrets
 
