@@ -26,7 +26,7 @@ namespace Commander.Controllers
         public ActionResult<IEnumerable<CommandReadDTO>> GetAllCommands()
         {
             var commandItems = _repository.GetAllCommands();
-            return Ok(_mapper.Map<IEnumerable<CommandReadDTO>>(commandItems));
+            return Ok(_mapper.Map<IEnumerable<CommandReadDTO>>(commandItems)); // 200 status
         }
 
         // GET api/commands/{id}
@@ -36,9 +36,9 @@ namespace Commander.Controllers
             var commandItem = _repository.GetCommandById(id);
             if (commandItem != null)
             {
-                return Ok(_mapper.Map<CommandReadDTO>(commandItem));
+                return Ok(_mapper.Map<CommandReadDTO>(commandItem)); // 200 status
             }
-            return NotFound();
+            return NotFound(); // 404 status
         }
 
         //POST api/commands
@@ -51,7 +51,25 @@ namespace Commander.Controllers
 
             var commandReadDTO = _mapper.Map<CommandReadDTO>(commandModel);
 
-            return CreatedAtRoute(nameof(GetCommandById), new { Id = commandReadDTO.Id }, commandReadDTO);
+            return CreatedAtRoute(nameof(GetCommandById), new { Id = commandReadDTO.Id }, commandReadDTO); // 201 status
+        }
+
+        // PUT api/commands/{id}
+        [HttpPut("{id}")]
+        public ActionResult UpdateCommand(int id, CommandUpdateDTO commandUpdateDTO)
+        {
+            var commandModelFromRepo = _repository.GetCommandById(id);
+            if (commandModelFromRepo == null)
+            {
+                return NotFound(); // 404 status
+            }
+
+            _mapper.Map(commandUpdateDTO, commandModelFromRepo);
+
+            _repository.UpdateCommand(commandModelFromRepo);
+            _repository.SaveChanges();
+
+            return NoContent(); // 204 status
         }
     }
 }
