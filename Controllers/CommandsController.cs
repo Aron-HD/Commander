@@ -98,5 +98,20 @@ namespace Commander.Controllers
 
             return NoContent(); // 204 status
         }
+
+        // DELETE api/commands/{id}
+        [HttpDelete("{id}")]
+        public ActionResult DeleteCommand(int id)
+        {
+            var commandModelFromRepo = _repository.GetCommandById(id);
+            if (commandModelFromRepo == null)
+            {
+                return NotFound(); // 404 status
+            }
+            _repository.DeleteCommand(commandModelFromRepo);
+            _repository.SaveChanges();
+
+            return NoContent(); // 204 status
+        }
     }
 }
